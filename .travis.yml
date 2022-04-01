@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 7.3
+  - 7.4
+
+env:
+  global:
+    - setup=basic
+
+matrix:
+  fast_finish: true
+
+sudo: false
+
+install:
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-dist --no-suggest; fi
+
+script: vendor/bin/phpunit

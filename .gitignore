@@ -1,0 +1,9 @@
+/vendor
+composer.phar
+composer.lock
+/report
+/.idea
+atlassian-ide-plugin.xml
+/vagrant
+Vagrantfile
+.phpunit.result.cache

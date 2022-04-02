@@ -1,7 +1,7 @@
 {
   "name": "microestc/oscardb",
   "description": "OscarDB driver for Laravel",
-  "keywords": ["oscar", "laravel", "laravel 8", "pdo_aci", "aci"],
+  "keywords": ["oscar", "laravel", "laravel 8", "pdo_aci", "aci", "oscardb", "microestc", "shentong"],
   "license": "MIT",
   "authors": [
       {
@@ -10,14 +10,14 @@
       }
   ],
   "require": {
-    "php": "^7.4.20",
+    "php": "^5.4 || ^7.0 || ^8.0",
     "illuminate/support": "^8.0",
     "illuminate/database": "^8.24.0",
     "illuminate/pagination": "^8.0"
   },
   "require-dev": {
     "mockery/mockery": "^1.4.2",
-    "phpunit/phpunit": "^9.3.3"
+    "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
   },
   "autoload": {
     "psr-4": {
@@ -29,6 +29,9 @@
       "providers": [
           "OscarDB\\OscarDBServiceProvider"
       ]
+    },
+    "branch-alias": {
+      "dev-master": "1.0"
     }
   },
   "minimum-stability": "dev"

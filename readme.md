@@ -31,7 +31,7 @@ Next, publish OscarDB's configuration file using the vendor:publish Artisan comm
 configuration file to `config/oscardb.php` in your project.
 
 ```sh
-php artisan vendor:publish --tag=Oscardb-config
+php artisan vendor:publish --tag=oscardb-config
 ```
 
 To finish the installation, set your environment variables (typically in your .env file) to the corresponding

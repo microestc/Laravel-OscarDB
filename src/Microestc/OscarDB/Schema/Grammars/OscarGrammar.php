@@ -1,6 +1,6 @@
 <?php
 
-namespace OscarDB\Schema\Grammars;
+namespace Microestc\OscarDB\Schema\Grammars;
 
 use Illuminate\Support\Fluent;
 use Illuminate\Database\Connection;

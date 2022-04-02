@@ -1,6 +1,6 @@
 <?php
 
-namespace OscarDB\Schema;
+namespace Microestc\OscarDB\Schema;
 
 class OscarSchemaBuilder extends \Illuminate\Database\Schema\Builder
 {

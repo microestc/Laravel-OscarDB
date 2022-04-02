@@ -1,10 +1,10 @@
 <?php
 
-namespace OscarDB\Query\Processors;
+namespace Microestc\OscarDB\Query\Processors;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Processors\Processor as Processor;
-use OscarDB\ACI_PDO\ACI;
+use Microestc\OscarDB\ACI_PDO\ACI;
 
 class OscarProcessor extends Processor
 {

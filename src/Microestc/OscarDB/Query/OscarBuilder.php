@@ -1,6 +1,6 @@
 <?php
 
-namespace OscarDB\Query;
+namespace Microestc\OscarDB\Query;
 
 use Illuminate\Database\Query\Expression;
 

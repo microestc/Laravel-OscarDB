@@ -1,6 +1,6 @@
 <?php
 
-namespace OscarDB\Query\Grammars;
+namespace Microestc\OscarDB\Query\Grammars;
 
 use Config;
 use Illuminate\Database\Query\Builder;

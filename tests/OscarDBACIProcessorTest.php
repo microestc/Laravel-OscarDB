@@ -1,7 +1,7 @@
 <?php
 
-use OscarDB\OscarConnection;
-use OscarDB\Query\OscarBuilder;
+use Microestc\OscarDB\OscarConnection;
+use Microestc\OscarDB\Query\OscarBuilder;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +37,7 @@ class OscarDBACIProcessorTest extends TestCase
         $builder = m::mock(OscarBuilder::class);
         $builder->shouldReceive('getConnection')->once()->andReturn($connection);
 
-        $processor = new OscarDB\Query\Processors\OscarProcessor;
+        $processor = new Microestc\OscarDB\Query\Processors\OscarProcessor;
 
         $result = $processor->processInsertGetId($builder, 'sql', [1, 'foo', true, null], 'id');
         $this->assertSame(0, $result);
@@ -45,7 +45,7 @@ class OscarDBACIProcessorTest extends TestCase
 
     public function testProcessColumnListing()
     {
-        $processor = new OscarDB\Query\Processors\OscarProcessor();
+        $processor = new Microestc\OscarDB\Query\Processors\OscarProcessor();
         $listing = [['column_name' => 'id'], ['column_name' => 'name'], ['column_name' => 'email']];
         $expected = ['id', 'name', 'email'];
         $this->assertEquals($expected, $processor->processColumnListing($listing));

@@ -1,6 +1,6 @@
 <?php
 
-namespace OscarDB\ACI_PDO;
+namespace Microestc\OscarDB\ACI_PDO;
 
 use PDOException;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace OscarDB\Connectors;
+namespace Microestc\OscarDB\Connectors;
 
 use Illuminate\Database\Connectors\Connector as Connector;
 use Illuminate\Database\Connectors\ConnectorInterface as ConnectorInterface;
-use OscarDB\ACI_PDO\ACI as ACI;
+use Microestc\OscarDB\ACI_PDO\ACI as ACI;
 
 class OscarConnector extends Connector implements ConnectorInterface
 {

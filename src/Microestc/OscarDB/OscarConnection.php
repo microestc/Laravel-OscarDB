@@ -1,14 +1,14 @@
 <?php
 
-namespace OscarDB;
+namespace Microestc\OscarDB;
 
 use Illuminate\Database\Connection;
-use OscarDB\Schema\OscarBuilder as OscarSchemaBuilder;
-use OscarDB\Query\Processors\OscarProcessor;
+use Microestc\OscarDB\Schema\OscarBuilder as OscarSchemaBuilder;
+use Microestc\OscarDB\Query\Processors\OscarProcessor;
 use Doctrine\DBAL\Driver\ACI\Driver as DoctrineDriver;
-use OscarDB\Query\Grammars\OscarGrammar as QueryGrammer;
-use OscarDB\Query\OscarBuilder as OscarQueryBuilder;
-use OscarDB\Schema\Grammars\OscarGrammar as SchemaGrammer;
+use Microestc\OscarDB\Query\Grammars\OscarGrammar as QueryGrammer;
+use Microestc\OscarDB\Query\OscarBuilder as OscarQueryBuilder;
+use Microestc\OscarDB\Schema\Grammars\OscarGrammar as SchemaGrammer;
 use PDO;
 
 class OscarConnection extends Connection
@@ -16,7 +16,7 @@ class OscarConnection extends Connection
     /**
      * Get a schema builder instance for the connection.
      *
-     * @return \OscarDB\Schema\OscarBuilder
+     * @return \Microestc\OscarDB\Schema\OscarBuilder
      */
     public function getSchemaBuilder()
     {
@@ -30,7 +30,7 @@ class OscarConnection extends Connection
     /**
      * Get a new query builder instance.
      *
-     * @return \OscarDB\Query\OscarBuilder
+     * @return \Microestc\OscarDB\Query\OscarBuilder
      */
     public function query()
     {
@@ -42,7 +42,7 @@ class OscarConnection extends Connection
     /**
      * Get the default query grammar instance.
      *
-     * @return \OscarDB\Query\Grammars\OscarGrammar
+     * @return \Microestc\OscarDB\Query\Grammars\OscarGrammar
      */
     protected function getDefaultQueryGrammar()
     {
@@ -52,7 +52,7 @@ class OscarConnection extends Connection
     /**
      * Get the default schema grammar instance.
      *
-     * @return \OscarDB\Schema\Grammars\OscarGrammar
+     * @return \Microestc\OscarDB\Schema\Grammars\OscarGrammar
      */
     protected function getDefaultSchemaGrammar()
     {
@@ -62,7 +62,7 @@ class OscarConnection extends Connection
     /**
      * Get the default post processor instance.
      *
-     * @return \OscarDB\Query\Processors\OscarProcessor
+     * @return \Microestc\OscarDB\Query\Processors\OscarProcessor
      */
     protected function getDefaultPostProcessor()
     {

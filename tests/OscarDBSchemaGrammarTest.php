@@ -3,8 +3,8 @@
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ForeignIdColumnDefinition;
-use OscarDB\OscarConnection;
-use OscarDB\Schema\Grammars\OscarGrammar;
+use Microestc\OscarDB\OscarConnection;
+use Microestc\OscarDB\Schema\Grammars\OscarGrammar;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 
@@ -864,6 +864,6 @@ class OscarDBSchemaGrammarTest extends TestCase
         global $ConfigReturnValue;
         $ConfigReturnValue = $quote;
 
-        return new OscarDB\Schema\Grammars\OscarGrammar;
+        return new Microestc\OscarDB\Schema\Grammars\OscarGrammar;
     }
 }

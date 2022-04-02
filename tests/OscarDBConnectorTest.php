@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Connectors\Connector;
-use OscarDB\Connectors\OscarConnector;
+use Microestc\OscarDB\Connectors\OscarConnector;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 

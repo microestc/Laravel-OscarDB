@@ -1,6 +1,6 @@
 <?php
 
-namespace OscarDB\ACI_PDO;
+namespace Microestc\OscarDB\ACI_PDO;
 
 class ACI extends \PDO
 {
@@ -228,7 +228,7 @@ class ACI extends \PDO
     }
 
     /**
-     * Prepares a statement for execution and returns a OscarDB\ACI_PDO\ACIStatement object.
+     * Prepares a statement for execution and returns a Microestc\OscarDB\ACI_PDO\ACIStatement object.
      *
      * @param  string $statement Valid SQL statement for the target database server.
      * @param  array $driver_options Attribute values for the ACIStatement object
@@ -256,7 +256,7 @@ class ACI extends \PDO
     }
 
     /**
-     * Executes an SQL statement, returning a result set as a OscarDB\ACI_PDO\ACIStatement object
+     * Executes an SQL statement, returning a result set as a Microestc\OscarDB\ACI_PDO\ACIStatement object
      * on success or false on failure.
      *
      * @param  string $statement Valid SQL statement for the target database server.

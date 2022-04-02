@@ -9,8 +9,8 @@ use Illuminate\Database\Query\Grammars\Grammar;
 use Illuminate\Database\Query\Processors\Processor;
 use Illuminate\Pagination\AbstractPaginator as Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
-use OscarDB\Query\OscarBuilder as OscarQueryBuilder;
-use OscarDB\Query\Processors\OscarProcessor;
+use Microestc\OscarDB\Query\OscarBuilder as OscarQueryBuilder;
+use Microestc\OscarDB\Query\Processors\OscarProcessor;
 use PHPUnit\Framework\TestCase;
 
 include 'mocks/PDOMocks.php';
@@ -2863,7 +2863,7 @@ class OscarDBQueryBuilderTest extends TestCase
         global $ConfigReturnValue;
         $ConfigReturnValue = $quote;
 
-        $grammar = new OscarDB\Query\Grammars\OscarGrammar;
+        $grammar = new Microestc\OscarDB\Query\Grammars\OscarGrammar;
         $processor = m::mock(OscarProcessor::class);
 
         return new OscarQueryBuilder($this->getConnection(), $grammar, $processor);
@@ -2871,8 +2871,8 @@ class OscarDBQueryBuilderTest extends TestCase
 
     protected function getOscarBuilderWithProcessor()
     {
-        $grammar = new OscarDB\Query\Grammars\OscarGrammar;
-        $processor = new OscarDB\Query\Processors\OscarProcessor;
+        $grammar = new Microestc\OscarDB\Query\Grammars\OscarGrammar;
+        $processor = new Microestc\OscarDB\Query\Processors\OscarProcessor;
 
         return new OscarQueryBuilder($this->getConnection(), $grammar, $processor);
     }

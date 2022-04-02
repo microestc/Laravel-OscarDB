@@ -1,7 +1,7 @@
 <?php
 
-use OscarDB\ACI_PDO\ACIException;
-use OscarDB\ACI_PDO\ACIStatement;
+use Microestc\OscarDB\ACI_PDO\ACIException;
+use Microestc\OscarDB\ACI_PDO\ACIStatement;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 

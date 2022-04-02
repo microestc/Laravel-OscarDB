@@ -1,6 +1,6 @@
 <?php
 
-namespace OscarDB;
+namespace Microestc\OscarDB;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -22,7 +22,7 @@ class OscarDBServiceProvider extends ServiceProvider
     /**
      * Register the service provider.
      *
-     * @returns OrcaleDB\OscarConnection
+     * @returns Microestc\OscarDB\OscarConnection
      */
     public function register()
     {

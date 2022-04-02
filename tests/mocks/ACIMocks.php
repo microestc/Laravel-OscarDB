@@ -1,7 +1,7 @@
 <?php
 
 if (! class_exists('TestACIStub')) {
-    class TestACIStub extends OscarDB\ACI_PDO\ACI
+    class TestACIStub extends Microestc\OscarDB\ACI_PDO\ACI
     {
         public function __construct($dsn = '', $username = null, $password = null, $driver_options = [], $charset = '')
         {
@@ -16,7 +16,7 @@ if (! class_exists('TestACIStub')) {
 }
 
 if (! class_exists('TestACIStatementStub')) {
-    class TestACIStatementStub extends OscarDB\ACI_PDO\ACIStatement
+    class TestACIStatementStub extends Microestc\OscarDB\ACI_PDO\ACIStatement
     {
         public function __construct($stmt, $conn, $sql, $options)
         {
@@ -33,7 +33,7 @@ if (! class_exists('TestACIStatementStub')) {
 }
 
 if (! class_exists('ProcessorTestACIStub')) {
-    class ProcessorTestACIStub extends OscarDB\ACI_PDO\ACI
+    class ProcessorTestACIStub extends Microestc\OscarDB\ACI_PDO\ACI
     {
         public function __construct()
         {
@@ -50,7 +50,7 @@ if (! class_exists('ProcessorTestACIStub')) {
 }
 
 if (! class_exists('ProcessorTestACIStatementStub')) {
-    class ProcessorTestACIStatementStub extends OscarDB\ACI_PDO\ACIStatement
+    class ProcessorTestACIStatementStub extends Microestc\OscarDB\ACI_PDO\ACIStatement
     {
         public function __construct()
         {

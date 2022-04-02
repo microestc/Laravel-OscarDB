@@ -26,11 +26,6 @@
     }
   },
   "extra": {
-    "laravel": {
-      "providers": [
-          "OscarDB\\OscarDBServiceProvider"
-      ]
-    },
     "branch-alias": {
       "dev-master": "1.0-dev"
     }

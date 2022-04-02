@@ -10,7 +10,7 @@
       }
   ],
   "require": {
-    "php": "^5.3.0",
+    "php": "^7.4.20",
     "illuminate/support": "^8.0",
     "illuminate/database": "^8.24.0",
     "illuminate/pagination": "^8.0"

@@ -9,6 +9,7 @@
         "email": "microestc@outlook.com"
       }
   ],
+  "type": "library",
   "require": {
     "php": "^7.0",
     "illuminate/support": "^8.0",
@@ -21,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "OsarDB\\": "src/OsarDB"
+      "OsarDB\\": "src/OsarDB/"
     }
   },
   "extra": {

@@ -32,12 +32,21 @@ class OscarConnector extends Connector implements ConnectorInterface
         if ($config['driver'] == 'pdo') {
             return parent::createConnection($dsn, $config, $options);
         } else {
-            if ($options[\PDO::ATTR_PERSISTENT]) {
-                return new \PDO($dsn, $username, $password, array(PDO::ATTR_PERSISTENT => true));
+            if ($this->getAttribute($options,\PDO::ATTR_PERSISTENT)) {
+                return new \PDO($dsn, $config['username'], $config['password'], array(PDO::ATTR_PERSISTENT => true));
             } else {
-                return new \PDO($dsn, $username, $password);
+                return new \PDO($dsn, $config['username'], $config['password']);
             }
         }
+    }
+
+    public function getAttribute(array $options, $attribute)
+    {
+        if (isset($options[$attribute])) {
+            return $options[$attribute];
+        }
+
+        return;
     }
 
     /**
@@ -53,6 +62,8 @@ class OscarConnector extends Connector implements ConnectorInterface
         $options = $this->getOptions($config);
 
         $connection = $this->createConnection($dsn, $config, $options);
+
+        $this->configureSchema($connection, $config);
 
         return $connection;
     }
@@ -72,5 +83,21 @@ class OscarConnector extends Connector implements ConnectorInterface
         $rv = 'aci:dbname='.$rv.(empty($config['charset']) ? '' : ';charset='.$config['charset']);
 
         return $rv;
+    }
+
+    /**
+     * Set the schema on the connection.
+     *
+     * @param  \PDO  $connection
+     * @param  array  $config
+     * @return void
+     */
+    protected function configureSchema($connection, $config)
+    {
+        if (isset($config['schema'])) {
+            $schema = $this->formatSchema($config['schema']);
+
+            $connection->prepare("set search_path to {$schema}")->execute();
+        }
     }
 }

@@ -89,10 +89,18 @@ class OscarConnection extends Connection
     public function bindValues($statement, $bindings)
     {
         foreach ($bindings as $key => $value) {
+            if (is_int($value)) {
+                $pdoParam = PDO::PARAM_INT;
+            } elseif (is_resource($value)) {
+                $pdoParam = PDO::PARAM_LOB;
+            } else {
+                $pdoParam = PDO::PARAM_STR;
+            }
+
             $statement->bindValue(
-                $key,
+                is_string($key) ? $key : $key + 1,
                 $value,
-                is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR
+                $pdoParam
             );
         }
     }

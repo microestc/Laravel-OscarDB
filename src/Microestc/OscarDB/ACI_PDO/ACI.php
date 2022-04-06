@@ -2,6 +2,8 @@
 
 namespace Microestc\OscarDB\ACI_PDO;
 
+use PDO;
+
 class ACI extends \PDO
 {
     /**
@@ -114,15 +116,7 @@ class ACI extends \PDO
      */
     public function beginTransaction()
     {
-        if ($this->inTransaction()) {
-            throw new ACIException($this->setErrorInfo('25000', '9999', 'Already in a transaction'));
-        }
-
-        $this->conn->beginTransaction();
-
-        $this->transaction = $this->setExecuteMode(\ACI_NO_AUTO_COMMIT);
-
-        return true;
+        return $this->conn->beginTransaction();
     }
 
     /**
@@ -134,17 +128,7 @@ class ACI extends \PDO
      */
     public function commit()
     {
-        if ($this->inTransaction()) {
-            $r = $this->conn->commit();
-            if (! $r) {
-                throw new ACIException('08007');
-            }
-            $this->transaction = ! $this->flipExecuteMode();
-
-            return true;
-        }
-
-        return false;
+        return $this->conn->commit();
     }
 
     /**
@@ -154,11 +138,7 @@ class ACI extends \PDO
      */
     public function errorCode()
     {
-        if (! empty($this->error[0])) {
-            return $this->error[0];
-        }
-
-        return;
+        return $this->conn->errorCode();
     }
 
     /**
@@ -168,7 +148,7 @@ class ACI extends \PDO
      */
     public function errorInfo()
     {
-        return $this->error;
+        return $this->conn->errorInfo();
     }
 
     /**
@@ -200,11 +180,7 @@ class ACI extends \PDO
      */
     public function getAttribute($attribute)
     {
-        if (isset($this->attributes[$attribute])) {
-            return $this->attributes[$attribute];
-        }
-
-        return;
+        return $this->conn->getAttribute($attribute);
     }
 
     /**
@@ -214,7 +190,7 @@ class ACI extends \PDO
      */
     public function inTransaction()
     {
-        return $this->transaction;
+        return $this->conn->inTransaction();
     }
 
     /**
@@ -293,17 +269,7 @@ class ACI extends \PDO
      */
     public function rollBack()
     {
-        if ($this->inTransaction()) {
-            $r = $this->conn.rollBack();
-            if (! $r) {
-                throw new ACIException($this->setErrorInfo('40003'));
-            }
-            $this->transaction = ! $this->flipExecuteMode();
-
-            return true;
-        }
-
-        return false;
+        return $this->conn->rollBack();
     }
 
     /**
@@ -316,9 +282,7 @@ class ACI extends \PDO
      */
     public function setAttribute($attribute, $value)
     {
-        $this->attributes[$attribute] = $value;
-
-        return true;
+        return $this->conn->setAttribute($attribute, $value);
     }
 
     /**
@@ -335,7 +299,7 @@ class ACI extends \PDO
      */
     public function flipExecuteMode()
     {
-        $this->setExecuteMode($this->getExecuteMode() == \ACI_COMMIT_ON_SUCCESS ? \ACI_NO_AUTO_COMMIT : \ACI_COMMIT_ON_SUCCESS);
+        $this->setExecuteMode($this->getExecuteMode() == '\ACI_COMMIT_ON_SUCCESS' ? '\ACI_NO_AUTO_COMMIT' : '\ACI_COMMIT_ON_SUCCESS');
 
         return true;
     }
@@ -399,7 +363,7 @@ class ACI extends \PDO
      */
     public function setExecuteMode($mode)
     {
-        if ($mode === \ACI_COMMIT_ON_SUCCESS || $mode === \ACI_NO_AUTO_COMMIT) {
+        if ($mode === '\ACI_COMMIT_ON_SUCCESS' || $mode === '\ACI_NO_AUTO_COMMIT') {
             $this->mode = $mode;
 
             return true;

@@ -2,6 +2,8 @@
 
 namespace Microestc\OscarDB\ACI_PDO;
 
+use \Microestc\OscarDB\ACI_PDO\ACI as ACI;
+
 class ACIStatement extends \PDOStatement
 {
     /**
@@ -46,7 +48,7 @@ class ACIStatement extends \PDOStatement
      *
      * @throws ACIException if $stmt is not a vaild aci statement resource
      */
-    public function __construct($stmt, \Microestc\OscarDB\ACI_PDO\ACI $aci, $sql = '', $options = [])
+    public function __construct($stmt, ACI $aci, $sql = '', $options = [])
     {
         $resource_type = strtolower(get_resource_type($stmt));
 

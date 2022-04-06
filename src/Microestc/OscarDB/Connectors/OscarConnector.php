@@ -32,7 +32,11 @@ class OscarConnector extends Connector implements ConnectorInterface
         if ($config['driver'] == 'pdo') {
             return parent::createConnection($dsn, $config, $options);
         } else {
-            return new ACI($dsn, $config['username'], $config['password'], $options);
+            if ($options[\PDO::ATTR_PERSISTENT]) {
+                return new \PDO($dsn, $username, $password, array(PDO::ATTR_PERSISTENT => true));
+            } else {
+                return new \PDO($dsn, $username, $password);
+            }
         }
     }
 

@@ -16,7 +16,7 @@ class OscarConnector extends Connector implements ConnectorInterface
     protected $options = [
         \PDO::ATTR_CASE => \PDO::CASE_LOWER,
         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-        \PDO::ATTR_Oscar_NULLS => \PDO::NULL_NATURAL,
+        \PDO::ATTR_ORACLE_NULLS => \PDO::NULL_NATURAL,
     ];
 
     /**

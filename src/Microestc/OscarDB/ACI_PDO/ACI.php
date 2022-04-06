@@ -32,10 +32,11 @@ class ACI extends \PDO
     /**
      * @var array Database connection attributes
      */
-    protected $attributes = [\PDO::ATTR_AUTOCOMMIT => 1,
+    protected $attributes = [
+        \PDO::ATTR_AUTOCOMMIT => 1,
         \PDO::ATTR_ERRMODE => 0,
         \PDO::ATTR_CASE => 0,
-        \PDO::ATTR_OSCAR_NULLS => 0,
+        \PDO::ATTR_ORACLE_NULLS => 0,
     ];
 
     /**
@@ -46,7 +47,7 @@ class ACI extends \PDO
     /**
      * @var int Mode for executing on Database Connection
      */
-    protected $mode = \ACI_COMMIT_ON_SUCCESS;
+    protected $mode = '\ACI_COMMIT_ON_SUCCESS';
 
     /**
      * @var array PDO errorInfo array

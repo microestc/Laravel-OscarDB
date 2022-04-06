@@ -34,7 +34,7 @@ class ACI extends \PDO
         \PDO::ATTR_AUTOCOMMIT => 1,
         \PDO::ATTR_ERRMODE => 0,
         \PDO::ATTR_CASE => 0,
-        \PDO::ATTR_OSCAR_NULLS => 0,
+        \PDO::ATTR_ORACLE_NULLS => 0,
     ];
 
     /**

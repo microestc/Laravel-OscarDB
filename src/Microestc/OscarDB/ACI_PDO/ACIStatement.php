@@ -30,13 +30,13 @@ class ACIStatement extends \PDOStatement
      * @var array PDO => ACI data types conversion var
      */
     protected $datatypes = [
-        \PDO::PARAM_BOOL => \SQLT_INT,
+        \PDO::PARAM_BOOL => 3,
         // there is no SQLT_NULL, but Oscar will insert a null value if it receives an empty string
-        \PDO::PARAM_NULL => \SQLT_CHR,
-        \PDO::PARAM_INT => \SQLT_INT,
-        \PDO::PARAM_STR => \SQLT_CHR,
-        \PDO::PARAM_INPUT_OUTPUT => \SQLT_CHR,
-        \PDO::PARAM_LOB => \SQLT_BLOB,
+        \PDO::PARAM_NULL => 1,
+        \PDO::PARAM_INT => 3,
+        \PDO::PARAM_STR => 1,
+        \PDO::PARAM_INPUT_OUTPUT => 1,
+        \PDO::PARAM_LOB => 113,
     ];
 
     /**
@@ -52,7 +52,7 @@ class ACIStatement extends \PDOStatement
     {
         $resource_type = strtolower(get_resource_type($stmt));
 
-        if ($resource_type != 'aci statement') {
+        if ($resource_type != 'acistatement') {
             throw new ACIException($this->setErrorInfo('0A000', '9999', "Invalid resource received: {$resource_type}"));
         }
 
@@ -67,7 +67,7 @@ class ACIStatement extends \PDOStatement
      */
     public function __destruct()
     {
-        if (strtolower(get_resource_type($this->stmt)) == 'aci statement') {
+        if (strtolower(get_resource_type($this->stmt)) == 'acistatement') {
             // $this->stmt->close();
         }
 

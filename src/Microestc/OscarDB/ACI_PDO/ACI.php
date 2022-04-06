@@ -2,8 +2,6 @@
 
 namespace Microestc\OscarDB\ACI_PDO;
 
-use PDO;
-
 class ACI extends \PDO
 {
     /**
@@ -36,7 +34,7 @@ class ACI extends \PDO
         \PDO::ATTR_AUTOCOMMIT => 1,
         \PDO::ATTR_ERRMODE => 0,
         \PDO::ATTR_CASE => 0,
-        \PDO::ATTR_ORACLE_NULLS => 0,
+        \PDO::ATTR_OSCAR_NULLS => 0,
     ];
 
     /**
@@ -47,7 +45,7 @@ class ACI extends \PDO
     /**
      * @var int Mode for executing on Database Connection
      */
-    protected $mode = '\ACI_COMMIT_ON_SUCCESS';
+    protected $mode = 32;
 
     /**
      * @var array PDO errorInfo array
@@ -87,9 +85,9 @@ class ACI extends \PDO
         $this->attributes = $driver_options + $this->attributes;
 
         if ($this->getAttribute(\PDO::ATTR_PERSISTENT)) {
-            $this->conn = new PDO($dsn, $username, $password, array(PDO::ATTR_PERSISTENT => true));
+            $this->conn = new \PDO($dsn, $username, $password, array(PDO::ATTR_PERSISTENT => true));
         } else {
-            $this->conn = new PDO($dsn, $username, $password);
+            $this->conn = new \PDO($dsn, $username, $password);
         }
 
         //Check if connection was successful
@@ -117,7 +115,15 @@ class ACI extends \PDO
      */
     public function beginTransaction()
     {
-        return $this->conn->beginTransaction();
+        if ($this->inTransaction()) {
+            throw new ACIException($this->setErrorInfo('25000', '9999', 'Already in a transaction'));
+        }
+
+        $this->conn->beginTransaction();
+
+        $this->transaction = $this->setExecuteMode(0);
+
+        return true;
     }
 
     /**
@@ -129,7 +135,17 @@ class ACI extends \PDO
      */
     public function commit()
     {
-        return $this->conn->commit();
+        if ($this->inTransaction()) {
+            $r = $this->conn->commit();
+            if (! $r) {
+                throw new ACIException('08007');
+            }
+            $this->transaction = ! $this->flipExecuteMode();
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -139,7 +155,11 @@ class ACI extends \PDO
      */
     public function errorCode()
     {
-        return $this->conn->errorCode();
+        if (! empty($this->error[0])) {
+            return $this->error[0];
+        }
+
+        return;
     }
 
     /**
@@ -149,7 +169,7 @@ class ACI extends \PDO
      */
     public function errorInfo()
     {
-        return $this->conn->errorInfo();
+        return $this->error;
     }
 
     /**
@@ -181,7 +201,11 @@ class ACI extends \PDO
      */
     public function getAttribute($attribute)
     {
-        return $this->conn->getAttribute($attribute);
+        if (isset($this->attributes[$attribute])) {
+            return $this->attributes[$attribute];
+        }
+
+        return;
     }
 
     /**
@@ -191,7 +215,7 @@ class ACI extends \PDO
      */
     public function inTransaction()
     {
-        return $this->conn->inTransaction();
+        return $this->transaction;
     }
 
     /**
@@ -270,7 +294,17 @@ class ACI extends \PDO
      */
     public function rollBack()
     {
-        return $this->conn->rollBack();
+        if ($this->inTransaction()) {
+            $r = $this->conn.rollBack();
+            if (! $r) {
+                throw new ACIException($this->setErrorInfo('40003'));
+            }
+            $this->transaction = ! $this->flipExecuteMode();
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -283,7 +317,9 @@ class ACI extends \PDO
      */
     public function setAttribute($attribute, $value)
     {
-        return $this->conn->setAttribute($attribute, $value);
+        $this->attributes[$attribute] = $value;
+
+        return true;
     }
 
     /**
@@ -300,7 +336,7 @@ class ACI extends \PDO
      */
     public function flipExecuteMode()
     {
-        $this->setExecuteMode($this->getExecuteMode() == '\ACI_COMMIT_ON_SUCCESS' ? '\ACI_NO_AUTO_COMMIT' : '\ACI_COMMIT_ON_SUCCESS');
+        $this->setExecuteMode($this->getExecuteMode() == 32 ? 0 : 32);
 
         return true;
     }
@@ -364,7 +400,7 @@ class ACI extends \PDO
      */
     public function setExecuteMode($mode)
     {
-        if ($mode === '\ACI_COMMIT_ON_SUCCESS' || $mode === '\ACI_NO_AUTO_COMMIT') {
+        if ($mode === 32 || $mode === 0) {
             $this->mode = $mode;
 
             return true;

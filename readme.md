@@ -42,7 +42,7 @@ before any queries are executed. One way to accomplish this is to run a statemen
 method, for example:
 
 ```php
-if (config('database.default') === 'oscar') {
+if (config('database.default') === 'oscardb') {
 	DB::statement("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS'");
 }
 ```
@@ -52,6 +52,11 @@ The configuration file for this package is located at `config/oscardb.php`.
 In this file, you define all of your Oscar database connections. If you need to make more than one connection, just
 copy the example one. If you want to make one of these connections the default connection, enter the name you gave the
 connection into the "Default Database Connection Name" section in `config/database.php`.
+
+such as in config/database.php
+```
+'default' => 'oscardb',
+```
 
 Once you have configured the OscarDB database connection(s), you may run queries using the `DB` facade as normal.
 
@@ -136,3 +141,159 @@ features not already listed.
 ### License
 
 Licensed under the [MIT License](https://cheeaun.mit-license.org).
+
+## DEMO
+
+创建web 新应用 webapp
+```
+laravel new webapp
+cd webapp
+```
+
+安装 microestc/oscardb
+```
+composer require microestc/oscardb
+```
+
+创建配置文件 config/oscardb.php
+```
+<?php
+
+return [
+    'oscardb' => [
+        'driver'    => 'oscar',
+        'url'       => env('DB_URL'),
+        'host'      => '10.1.1.66',
+        'port'      => '2003',
+        'database'  => 'osrdb',
+        'username'  => 'sysdba',
+        'password'  => 'szoscar55',
+        'charset'   => 'utf8',
+        'prefix'    => '',
+        'quoting'   => false,
+    ],
+];
+
+```
+修改默认使用数据库 config/database.php
+```
+    'default' => 'oscardb',
+```
+
+配置默认数据库提供服务 config/app.php
+providers 中加入
+```
+Microestc\OscarDB\OscarDBServiceProvider::class,
+```
+
+开始测试
+
+追加路由 routes/web.php 
+```
+Route::get('/users/index', [UsersController::class, 'index']);
+
+```
+
+app/Http/Controllers/UsersController.php
+```
+<?php
+ 
+namespace App\Http\Controllers;
+ 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+ 
+class UsersController extends Controller
+{
+    /**
+     * Show a list of all of the application's users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        DB::statement('drop table if exists php_users');
+
+        DB::statement('create table php_users (id int auto_increment primary key, name text)');
+        
+        DB::unprepared("insert into php_users (name) values ('张三'),('Lili')");
+
+        $users = DB::select('select * from php_users');
+        \print_r($users);
+
+        $users = DB::select('select * from php_users where id > ?', [1]);
+        \print_r($users);
+
+        $users = DB::connection()->select('select * from php_users');
+        \print_r($users);
+
+        $users = DB::connection('oscardb')->select('select * from php_users');
+        \print_r($users);
+
+        $id = DB::connection('oscardb')->table('php_users')->insertGetId(
+            ['name' => 'john@example.com'], 'id'
+        );
+
+        \print_r($id);
+
+        DB::insert('insert into php_users (name) values (?)', ['Marc']);
+        $users = DB::select('select * from php_users');
+        \print_r($users);
+
+
+        $affected = DB::update(
+            'update php_users set name = ? where id = 1',
+            ['Anita']
+        );
+
+        \print_r("\n affected:".$affected);
+
+        $deleted = DB::delete('delete from php_users where id = 1');
+
+        \print_r("\n deleted:".$deleted);
+
+        DB::transaction(function () {
+            DB::update('update php_users set name = ? where id = 2', ['李四']);
+         
+            DB::delete('delete from php_posts');
+            DB::rollBack();
+        }, 2);
+
+        $users = DB::select('select * from php_users where id = 2');
+        \print_r($users);
+ 
+        return view('users_index', ['users' => $users]);
+    }
+}
+```
+
+resources/views/users_index.blade.php
+```
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Laravel</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <style>
+            body {
+                font-family: 'Nunito', sans-serif;
+            }
+        </style>
+    </head>
+    <body class="antialiased">
+    </body>
+</html>
+```
+
+启动应用
+```
+php artisan serve
+```
+
+浏览器键入地址查看结果

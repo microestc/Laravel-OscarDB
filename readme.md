@@ -2,7 +2,7 @@
 
 ### OscarDB (updated for Laravel 8.x)
 
-[![Latest Stable Version]()](https://packagist.org/packages/microestc/oscardb) [![Total Downloads](https://poser.pugx.org/microestc/oscardb/downloads.png)](https://packagist.org/packages/microestc/oscardb) [![Build Status](microestc/Laravel-OscarDB.png)](https://travis-ci.org/microestc/Laravel-OscarDB)
+[![Latest Stable Version]()](https://packagist.org/packages/microestc/oscardb) [![Total Downloads](https://poser.pugx.org/microestc/oscardb/downloads.png)](https://packagist.org/packages/microestc/oscardb)
 
 
 OscarDB is an Oscar Database Driver package for [Laravel Framework](https://laravel.com)
@@ -10,11 +10,6 @@ OscarDB is an Oscar Database Driver package for [Laravel Framework](https://lara
 _NOTE: This package has not been tested in PHP 8._
 
 **Please report any bugs you may find.**
-
-- [Installation](#installation)
-- [Basic Usage](#basic-usage)
-- [Unimplemented Features](#unimplemented-features)
-- [License](#license)
 
 ### Installation
 
@@ -140,7 +135,7 @@ features not already listed.
 
 ### License
 
-Licensed under the [MIT License](https://cheeaun.mit-license.org).
+Licensed under the [MIT License].
 
 ## DEMO
 

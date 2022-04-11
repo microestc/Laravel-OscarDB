@@ -11,7 +11,7 @@ _NOTE: This package has not been tested in PHP 8._
 
 **Please report any bugs you may find.**
 
-### Installation
+### 在线安装
 
 With [Composer](https://getcomposer.org):
 
@@ -21,6 +21,145 @@ composer require microestc/oscardb
 
 During this command, Laravel's "Auto-Discovery" feature should automatically register OscarDB's service
 provider.
+
+### 离线安装
+
+With [Composer](https://getcomposer.org):
+
+#### 1. 首先获取到该项目源码 （Laravel-OscarDB）
+```
+root@deb10:~/works/Laravel-OscarDB# tree
+.
+├── composer.json
+├── phpunit.xml
+├── readme.md
+├── src
+│   ├── config
+│   │   └── oscardb.php
+│   └── Microestc
+│       └── OscarDB
+│           ├── Connectors
+│           │   └── OscarConnector.php
+│           ├── OscarConnection.php
+│           ├── OscarDBServiceProvider.php
+│           ├── Query
+│           │   ├── Grammars
+│           │   │   └── OscarGrammar.php
+│           │   ├── OscarBuilder.php
+│           │   └── Processors
+│           │       └── OscarProcessor.php
+│           └── Schema
+│               ├── Grammars
+│               │   └── OscarGrammar.php
+│               └── OscarSchemaBuilder.php
+└── tests
+    ├── mocks
+    │   └── PDOMocks.php
+    ├── OscarDBConnectorTest.php
+    ├── OscarDBPDOProcessorTest.php
+    ├── OscarDBQueryBuilderTest.php
+    └── OscarDBSchemaGrammarTest.php
+
+12 directories, 17 files
+root@deb10:~/works/Laravel-OscarDB# 
+```
+
+#### 2. 配置项目依赖组件
+在项目配置文件 composer.json 中添加下列配置
+
+```
+    "require": {
+        "microestc/oscardb": "*"
+    },
+    "repositories": [
+        {
+            "packagist.org": false,
+            "type": "path",
+            "url": "../Laravel-OscarDB",
+            "options": {
+                "symlink": false
+            }
+        }
+    ],
+```
+>   `"url": "../Laravel-OscarDB",` 该路径为Laravel-OscarDB源码文件的路径
+
+#### 3. 执行离线安装
+```
+composer update
+```
+
+安装结果
+```
+root@deb10:~/works/webapp# composer update
+PHP Warning:  Module 'PDO_ACI' already loaded in Unknown on line 0
+
+Warning: Module 'PDO_ACI' already loaded in Unknown on line 0
+PHP Warning:  Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+
+Warning: Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+PHP Warning:  Module 'xdebug' already loaded in Unknown on line 0
+
+Warning: Module 'xdebug' already loaded in Unknown on line 0
+Xdebug: [Step Debug] Could not connect to debugging client. Tried: localhost:9003 (through xdebug.client_host/xdebug.client_port) :-(
+PHP Warning:  Module 'PDO_ACI' already loaded in Unknown on line 0
+
+Warning: Module 'PDO_ACI' already loaded in Unknown on line 0
+PHP Warning:  Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+
+Warning: Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+Xdebug: [Step Debug] Could not connect to debugging client. Tried: localhost:9003 (through xdebug.client_host/xdebug.client_port) :-(
+Composer is operating slower than normal because you have Xdebug enabled. See https://getcomposer.org/xdebug
+Do not run Composer as root/super user! See https://getcomposer.org/root for details
+Continue as root/super user [yes]? y
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 1 install, 0 updates, 0 removals
+  - Locking microestc/oscardb (dev-master)
+Writing lock file
+Installing dependencies from lock file (including require-dev)
+Package operations: 1 install, 0 updates, 0 removals
+  - Installing microestc/oscardb (dev-master): Mirroring from ../Laravel-OscarDB
+Package swiftmailer/swiftmailer is abandoned, you should avoid using it. Use symfony/mailer instead.
+Generating optimized autoload files
+> Illuminate\Foundation\ComposerScripts::postAutoloadDump
+> @php artisan package:discover --ansi
+PHP Warning:  Module 'PDO_ACI' already loaded in Unknown on line 0
+
+Warning: Module 'PDO_ACI' already loaded in Unknown on line 0
+PHP Warning:  Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+
+Warning: Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+PHP Warning:  Module 'xdebug' already loaded in Unknown on line 0
+
+Warning: Module 'xdebug' already loaded in Unknown on line 0
+Xdebug: [Step Debug] Could not connect to debugging client. Tried: localhost:9003 (through xdebug.client_host/xdebug.client_port) :-(
+Discovered Package: facade/ignition
+Discovered Package: fruitcake/laravel-cors
+Discovered Package: laravel/sail
+Discovered Package: laravel/sanctum
+Discovered Package: laravel/tinker
+Discovered Package: microestc/oscardb
+Discovered Package: nesbot/carbon
+Discovered Package: nunomaduro/collision
+Package manifest generated successfully.
+77 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+> @php artisan vendor:publish --tag=laravel-assets --ansi --force
+PHP Warning:  Module 'PDO_ACI' already loaded in Unknown on line 0
+
+Warning: Module 'PDO_ACI' already loaded in Unknown on line 0
+PHP Warning:  Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+
+Warning: Xdebug MUST be loaded as a Zend extension in Unknown on line 0
+PHP Warning:  Module 'xdebug' already loaded in Unknown on line 0
+
+Warning: Module 'xdebug' already loaded in Unknown on line 0
+Xdebug: [Step Debug] Could not connect to debugging client. Tried: localhost:9003 (through xdebug.client_host/xdebug.client_port) :-(
+No publishable resources for tag [laravel-assets].
+Publishing complete.
+```
+### 配置
 
 Next, publish OscarDB's configuration file using the vendor:publish Artisan command. This will copy OscarDB's
 configuration file to `config/oscardb.php` in your project.

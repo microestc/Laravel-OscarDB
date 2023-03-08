@@ -3,7 +3,7 @@
 namespace Microestc\OscarDB;
 
 use Illuminate\Database\Connection;
-use Microestc\OscarDB\Schema\OscarBuilder as OscarSchemaBuilder;
+use Microestc\OscarDB\Schema\OscarSchemaBuilder;
 use Microestc\OscarDB\Query\Processors\OscarProcessor;
 use Doctrine\DBAL\Driver\ACI\Driver as DoctrineDriver;
 use Microestc\OscarDB\Query\Grammars\OscarGrammar as QueryGrammer;

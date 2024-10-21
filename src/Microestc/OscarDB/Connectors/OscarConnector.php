@@ -95,7 +95,7 @@ class OscarConnector extends Connector implements ConnectorInterface
     protected function configureSchema($connection, $config)
     {
         if (isset($config['schema'])) {
-            $schema = $this->formatSchema($config['schema']);
+            $schema = $config['schema'];
 
             $connection->prepare("set search_path to {$schema}")->execute();
         }
